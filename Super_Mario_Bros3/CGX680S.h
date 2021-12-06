@@ -1,24 +1,28 @@
-	#pragma once
+#pragma once
 #pragma once
 #include "GameObject.h"
-#include "Brick.h"
 #include "algorithm"
 
-#define GOOMBA_WALKING_SPEED 0.05f;
+#define CGX680S_WALKING_SPEED 0.05f;
 
-#define GOOMBA_BBOX_WIDTH 16
-#define GOOMBA_BBOX_HEIGHT 15
-#define GOOMBA_BBOX_HEIGHT_DIE 9
+#define CGX680S_BBOX_WIDTH 16
+#define CGX680S_BBOX_HEIGHT 15
+#define CGX680S_BBOX_HEIGHT_DIE 9
 
-#define GOOMBA_STATE_WALKING 100
-#define GOOMBA_STATE_DIE 200
-#define GOOMBA_STATE_WALKING_UP 300
+#define CGX680S_STATE_WALKING_RIGHT 1000
+#define CGX680S_STATE_WALKING_LEFT 1001
+#define CGX680S_STATE_WALKING_UP 1002
+#define CGX680S_STATE_WALKING_DOWN 1003
 
-#define GOOMBA_ANI_WALKING 0
-#define GOOMBA_ANI_DIE 1
-#define MARIO_GRAVITY			0.002f
+#define CGX680S_ANI 0
 
-class CGoomba : public CGameObject
+#define CGX680S_STATE_IDLE 100
+#define CGX680S_STATE_DIE 200
+#define CGX680S_STATE_WALKING 300
+
+
+
+class CGX680S : public CGameObject
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -27,6 +31,6 @@ class CGoomba : public CGameObject
 	virtual void Render();
 
 public:
-	CGoomba();
+	CGX680S();
 	virtual void SetState(int state);
 };
