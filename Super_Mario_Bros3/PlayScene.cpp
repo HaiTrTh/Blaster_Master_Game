@@ -446,8 +446,8 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 		mario->SetState(TANK_BODY_STATE_WALKING_LEFT);
 	else if (game->IsKeyDown(DIK_DOWN))
 		mario->SetState(TANK_BODY_STATE_WALKING_DOWN);
-	else if (game->IsKeyDown(DIK_UP))
-		mario->SetState(TANK_BODY_STATE_WALKING_UP);
+	/*else if (game->IsKeyDown(DIK_UP))
+		mario->SetState(TANK_BODY_STATE_UP);*/
 	else
 		mario->SetState(TANK_BODY_STATE_IDLE);
 }

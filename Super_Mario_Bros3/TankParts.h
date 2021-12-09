@@ -4,7 +4,7 @@
 #define TankParts_STATE_DIE 0
 #define TankParts_BBOX_WIDTH 10
 #define TankParts_BBOX_HEIGHT 10
-
+// wheel banh xe
 #define TankParts_WHEEL_DISTANT_X 9
 #define TankParts_WHEEL_DISTANT_Y 0
 #define TankParts_TURRET_DISTANT_X 9

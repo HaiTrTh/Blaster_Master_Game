@@ -53,7 +53,9 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				isUsed = true;
 				x = TANK_BODY->x-7;
 				y = TANK_BODY->y - 9;
+				// dan bay ngang
 				SetSpeed(TANK_BODY->nx * 0.15);
+				// lien tuc 
 				TANK_BODY->SetisAlreadyFired(true);
 				StartReset();
 			}
@@ -106,8 +108,29 @@ void CTANKBULLET::CalcPotentialCollisions(
 		{
 				continue;
 		}
+	
+		
+		if (dynamic_cast<CINTERRUPT*>(e->obj))
+		{
+			CINTERRUPT* Eye = dynamic_cast<CINTERRUPT*>(e->obj);
+
+			if (e->nx != 0)
+			{
+				if (Eye->GetState() != CINTERRUPT_STATE_DIE)
+				{
+					Eye->SetState(CINTERRUPT_STATE_DIE);
+					// XET THOI GIAN
+					
+					//Eye->x = 99999;
+
+					vy = -TANK_BODY_JUMP_DEFLECT_SPEED;
+				}
+			}
+		}
+
+		// va cham se bien mat
 		if (e->t > 0 && e->t <= 1.0f)
-			coEvents.push_back(e);
+		coEvents.push_back(e);
 		else
 			delete e;
 	}

@@ -7,6 +7,7 @@
 
 #include "Eye.h"
 #include "Portal.h"
+#include "TankParts.h"
 
 CTANK_BODY::CTANK_BODY(float x, float y) : CGameObject()
 {
@@ -26,7 +27,7 @@ void CTANK_BODY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	//vy += TANK_BODY_GRAVITY * dt;
+	vy += TANK_BODY_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -106,8 +107,13 @@ void CTANK_BODY::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha);
 
+	
 	//RenderBoundingBox();
 }
+
+
+
+
 
 void CTANK_BODY::SetState(int state)
 {
@@ -118,7 +124,7 @@ void CTANK_BODY::SetState(int state)
 	case TANK_BODY_STATE_WALKING_DOWN:
 		vy = TANK_BODY_WALKING_SPEED;
 		break;
-	case TANK_BODY_STATE_WALKING_UP:
+	case TANK_BODY_STATE_UP:
 		vy = -TANK_BODY_WALKING_SPEED;
 		break;
 	case TANK_BODY_STATE_WALKING_RIGHT:
@@ -135,7 +141,7 @@ void CTANK_BODY::SetState(int state)
 		break;
 	case TANK_BODY_STATE_IDLE:
 		vx = 0;
-		vy = 0;
+		
 		break;
 	case TANK_BODY_STATE_DIE:
 		vy = TANK_BODY_DIE_DEFLECT_SPEED;

@@ -30,11 +30,18 @@ void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CINTERRUPT::Render()
 {
-	int ani = CINTERRUPT_ANI;
+	/*int ani = CINTERRUPT_ANI;
 
 	animation_set->at(ani)->Render(x, y);
-
+*/
 	//RenderBoundingBox();
+
+	int ani = CINTERRUPT_ANI;
+	if (state == CINTERRUPT_STATE_DIE) {
+		ani = CINTERRUPT_ANI_DIE;
+	}
+
+	animation_set->at(ani)->Render(x, y);
 }
 
 void CINTERRUPT::SetState(int state)
