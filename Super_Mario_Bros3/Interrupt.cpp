@@ -1,7 +1,7 @@
 #include "Interrupt.h"
 CINTERRUPT::CINTERRUPT()
 {
-	SetState(CINTERRUPT_STATE_IDLE);
+	SetState(STATE_IDLE);
 }
 
 void CINTERRUPT::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -18,6 +18,7 @@ void CINTERRUPT::GetBoundingBox(float& left, float& top, float& right, float& bo
 
 void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
 
 	//
@@ -26,22 +27,35 @@ void CINTERRUPT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	x += dx;
 	y += dy;
+
+	float px, py;
+
+	((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetPosition(px, py);
+	if(state != CINTERRUPT_STATE_OPEN)
+	if (this->x < px + SOPHIA_BIG_BBOX_WIDTH && this->x + CINTERRUPT_BBOX_WIDTH >= px && this->y < py)
+	{
+		SetState(CINTERRUPT_STATE_OPEN);
+		playscene->AddCInterrupt_FiringList(this->x, this->y);
+	}
+		
 }
 
 void CINTERRUPT::Render()
 {
-	/*int ani = CINTERRUPT_ANI;
+	if (state != STATE_DIE)
+	{
+		int ani = CINTERRUPT_ANI_IDLE;
+		switch (state)
+		{
+			case CINTERRUPT_STATE_OPEN:
+				ani = CINTERRUPT_ANI_OPEN;
+				break;
+		}
+		
+		animation_set->at(ani)->Render(x, y);
 
-	animation_set->at(ani)->Render(x, y);
-*/
-	//RenderBoundingBox();
-
-	int ani = CINTERRUPT_ANI;
-	if (state == CINTERRUPT_STATE_DIE) {
-		ani = CINTERRUPT_ANI_DIE;
+		//RenderBoundingBox();
 	}
-
-	animation_set->at(ani)->Render(x, y);
 }
 
 void CINTERRUPT::SetState(int state)
@@ -49,9 +63,12 @@ void CINTERRUPT::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case CINTERRUPT_STATE_WALKING:
-		vx = CINTERRUPT_WALKING_SPEED;
+	case STATE_IDLE:
+		vx = 0;
+		vy = 0;
 		break;
-
+	case STATE_DIE:
+		vy = DIE_PULL;
+		break;
 	}
 }

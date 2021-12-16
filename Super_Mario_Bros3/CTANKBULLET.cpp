@@ -1,7 +1,8 @@
 #include "CTANKBULLET.h"
 #include <algorithm>
 #include "PlayScene.h"
-#include "TANK_BODY.h"
+#include "SOPHIA.h"
+#include "Brick.h"
 
 CTANKBULLET::CTANKBULLET()
 {
@@ -45,19 +46,19 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	if (isUsed == false)
 	{
-		CTANK_BODY* TANK_BODY = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-		if (TANK_BODY->GetisFiring() == true)
+		CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		if (SOPHIA->GetisFiring() == true)
 		{
-			if (TANK_BODY->GetisAlreadyFired() == false)
+			if (SOPHIA->GetisAlreadyFired() == false)
 			{
 				isUsed = true;
-				x = TANK_BODY->x-7;
-				y = TANK_BODY->y - 9;
-				// dan bay ngang
-				SetSpeed(TANK_BODY->nx * 0.15);
-				// lien tuc 
-				TANK_BODY->SetisAlreadyFired(true);
+				x = SOPHIA->x;
+				y = SOPHIA->y;
+				SetSpeed(SOPHIA->nx * 0.15);
+				SOPHIA->SetisAlreadyFired(true);
+				SOPHIA->StartFiring();
 				StartReset();
+				DebugOut(L"FIRED \n");
 			}
 		}
 	}
@@ -79,15 +80,14 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CGoomba*>(e->obj)) // if e->obj is Goomba
+			if (!dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba
 			{
-
+				(e->obj)->SetState(STATE_DIE);
 			}
 			if (nx != 0 )
 			{
 				SetState(CTANKBULLET_STATE_DIE);
 			}
-			
 		}
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -104,33 +104,12 @@ void CTANKBULLET::CalcPotentialCollisions(
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
-		if (dynamic_cast<CTANK_BODY*>(e->obj))
+		if (dynamic_cast<CSOPHIA*>(e->obj))
 		{
 				continue;
 		}
-	
-		
-		if (dynamic_cast<CINTERRUPT*>(e->obj))
-		{
-			CINTERRUPT* Eye = dynamic_cast<CINTERRUPT*>(e->obj);
-
-			if (e->nx != 0)
-			{
-				if (Eye->GetState() != CINTERRUPT_STATE_DIE)
-				{
-					Eye->SetState(CINTERRUPT_STATE_DIE);
-					// XET THOI GIAN
-					
-					//Eye->x = 99999;
-
-					vy = -TANK_BODY_JUMP_DEFLECT_SPEED;
-				}
-			}
-		}
-
-		// va cham se bien mat
 		if (e->t > 0 && e->t <= 1.0f)
-		coEvents.push_back(e);
+			coEvents.push_back(e);
 		else
 			delete e;
 	}

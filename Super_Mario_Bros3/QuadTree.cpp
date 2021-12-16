@@ -10,7 +10,7 @@
 #define OBJECT_TYPE_CSTUKA	9
 #define OBJECT_TYPE_EYELET	10
 #define OBJECT_TYPE_CINTERCRUPT	11
-
+#define OBJECT_TYPE_CINTERCRUPT_BULLET	12
 
 #define OBJECT_TYPE_PORTAL	50
 
@@ -112,16 +112,22 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_LASERGUARD: obj = new CLaserGuard(); break;
-	case OBJECT_TYPE_BALLCARRY: obj = new CBallCarry(); break;
-	case OBJECT_TYPE_BALLBOT: obj = new CBallBot(); break;
-	case OBJECT_TYPE_DRAP: obj = new CDrap(); break;
+	case OBJECT_TYPE_LASERGUARD: obj = new CLASERGUARD(); break;
+	case OBJECT_TYPE_BALLCARRY: obj = new CBALLCARRY(); break;
+	case OBJECT_TYPE_BALLBOT: obj = new CBALLBOT(); break;
+	case OBJECT_TYPE_DRAP: obj = new CDRAP(); break;
 	case OBJECT_TYPE_CGX680: obj = new CGX680(); break;
 	case OBJECT_TYPE_CGX680S: obj = new CGX680S(); break;
 	case OBJECT_TYPE_CSTUKA: obj = new CSTUKA(); break;
-	case OBJECT_TYPE_EYELET: obj = new CEYELET(); break;
+	case OBJECT_TYPE_EYELET: 
+	{
+		float kill_point = atoi(tokens[4].c_str());
+		obj = new CEYELET(kill_point);
+		obj->SetisOriginObj(true);
+	}
+	break;
 	case OBJECT_TYPE_CINTERCRUPT: obj = new CINTERRUPT(); break;
-		
+	
 		
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
