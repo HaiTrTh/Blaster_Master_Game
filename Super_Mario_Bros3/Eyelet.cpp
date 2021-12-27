@@ -26,7 +26,7 @@ void CEYELET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// TO-DO: make sure Goomba can interact with the world and to each of them too!
 	// 
 
-	/*if (state != EYELET_STATE_ATTACK && playscene->IsInside(x, y, x + kill_point, y + 50, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && kill_point >= 0)
+	if (state != EYELET_STATE_ATTACK && playscene->IsInside(x, y, x + kill_point, y + 50, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && kill_point >= 0)
 	{
 		moving_limit_bottom = this->y + 10;
 		moving_limit_top = this->y - MOVING_LIMIT_RANGE;
@@ -43,16 +43,16 @@ void CEYELET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		if (this->y <= moving_limit_top)
 		{
-			this->vy = EYELET_WALKING_SPEED;
+			this->vy = -EYELET_WALKING_SPEED;
 		}
 		if (this->y >= moving_limit_bottom)
 		{
-			this->vy = -EYELET_WALKING_SPEED;
+			this->vy = EYELET_WALKING_SPEED;
 		}
 	}
 
 	x += dx;
-	y += dy;*/
+	y += dy;
 }
 
 void CEYELET::Render()
@@ -94,14 +94,14 @@ void CEYELET::SetState(int state)
 	{
 	case EYELET_STATE_ATTACK:
 		vx = kill_point / abs(kill_point) * EYELET_WALKING_SPEED;
-		vy = EYELET_WALKING_SPEED;
+		vy = -EYELET_WALKING_SPEED;
 		break;
 	case STATE_IDLE:
 		vx = 0;
 		vy = 0;
 		break;
 	case STATE_DIE:
-		vy = DIE_PULL;
+		vy = -DIE_PULL;
 		break;
 
 	}

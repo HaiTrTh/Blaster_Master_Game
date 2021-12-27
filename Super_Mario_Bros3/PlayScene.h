@@ -20,17 +20,24 @@
 #include "Eyelet.h"
 #include "Interrupt.h"
 #include "CTANKBULLET.h"
-#include "Interrupt_Firing.h"
+#include "CEvenType1.h"
 #include "CINTERRUPT_BULLET.h"
 #include "CREDWORM.h"
 #include "TANKBODY.h"
 #include "TANKTURRET.h"
+#include "EFFECT.h"
+#include "JASON.h"
+#include "CBOOM.h"
+#include "NoCollisionObject.h"
 
 #include "Utils.h"
 #include "Game.h"
 #include <iostream>
 #include <fstream>
-
+#include "Utils.h"
+#include "Textures.h"
+#include "Sprites.h"
+#include "Portal.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -77,13 +84,16 @@ public:
 class CPlayScene : public CScene
 {
 protected:
-	CSOPHIA* player;					// A play scene has to have player, right? 
+	CSOPHIA* player;				// A play scene has to have player, right? 
+	JASON* player2;
 	vector<LPGAMEOBJECT> objects;
 	int mapHeight;
 	Map* map;
 	CQuadTree* quadtree;
-	vector<CInterrupt_Firing*> CInterrupt_FiringList ;
-	vector<CInterrupt_Firing*> WormSpamMng;
+	vector<CEvenType1*> InterruptBulletMng ;
+	vector<CEvenType1*> WormSpamMng;
+	vector<CEvenType1*> KaboomMng;
+	vector<CEvenType1*> BoomCarryMng;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -105,6 +115,7 @@ public:
 	bool IsInside(float Ox, float Oy, float xRange, float yRange, float tx, float ty);
 
 	CSOPHIA* GetPlayer() { return player; }
+	JASON* GetPlayer2() { return player2; }
 
 	void setMapheight(int height)
 	{
@@ -115,33 +126,84 @@ public:
 	{
 		return mapHeight;
 	}
-	/////////////////CInterrupt_FiringList
-	void AddCInterrupt_FiringList(float x, float y)
+	/////////////////BoomCarryMng
+	void AddBoomCarryMng(float x, float y)
 	{
-		CInterrupt_Firing* obj = new CInterrupt_Firing(x, y);
-		this->CInterrupt_FiringList.push_back(obj);
+		CEvenType1* obj = new CEvenType1(x, y);
+		this->BoomCarryMng.push_back(obj);
 	}
-	CInterrupt_Firing* GetCInterrupt_FiringList()
+	void CheckStackBoomCarryMng()
 	{
-		return CInterrupt_FiringList.at(0);
+		if (BoomCarryMng.at(0)->getCEventStack() < 3)
+		{
+			BoomCarryMng.at(0)->setCEventStack(BoomCarryMng.at(0)->getCEventStack() + 1);
+		}
+		else 
+		{
+			DeleteBoomCarryMng();
+		}
 	}
-	bool CheckCInterrupt_FiringList()
+	CEvenType1* GetBoomCarryMng()
 	{
-		if (CInterrupt_FiringList.size() != 0)
+		return BoomCarryMng.at(0);
+	}
+	bool CheckBoomCarryMng()
+	{
+		if (BoomCarryMng.size() != 0)
 			return true;
 		return false;
 	}
-	void DeleteCInterrupt_FiringList()
+	void DeleteBoomCarryMng()
 	{
-		this->CInterrupt_FiringList.erase(CInterrupt_FiringList.begin());
+		this->BoomCarryMng.erase(BoomCarryMng.begin());
+	}
+	/////////////////KaboomMng
+	void AddKaboomMng(float x, float y)
+	{
+		CEvenType1* obj = new CEvenType1(x, y);
+		this->KaboomMng.push_back(obj);
+	}
+	CEvenType1* GetKaboomMng()
+	{
+		return KaboomMng.at(0);
+	}
+	bool CheckKaboomMng()
+	{
+		if (KaboomMng.size() != 0)
+			return true;
+		return false;
+	}
+	void DeleteKaboomMng()
+	{
+		this->KaboomMng.erase(KaboomMng.begin());
+	}
+	/////////////////InterruptBulletMng
+	void AddInterruptBulletMng(float x, float y)
+	{
+		CEvenType1* obj = new CEvenType1(x, y);
+		this->InterruptBulletMng.push_back(obj);
+	}
+	CEvenType1* GetInterruptBulletMng()
+	{
+		return InterruptBulletMng.at(0);
+	}
+	bool CheckInterruptBulletMng()
+	{
+		if (InterruptBulletMng.size() != 0)
+			return true;
+		return false;
+	}
+	void DeleteInterruptBulletMng()
+	{
+		this->InterruptBulletMng.erase(InterruptBulletMng.begin());
 	}
 	//////////////////////////WormSpamMng
 	void AddWormSpamMng(float x, float y)
 	{
-		CInterrupt_Firing* obj = new CInterrupt_Firing(x, y);
+		CEvenType1* obj = new CEvenType1(x, y);
 		this->WormSpamMng.push_back(obj);
 	}
-	CInterrupt_Firing* GetWormSpamMng()
+	CEvenType1* GetWormSpamMng()
 	{
 		return WormSpamMng.at(0);
 	}

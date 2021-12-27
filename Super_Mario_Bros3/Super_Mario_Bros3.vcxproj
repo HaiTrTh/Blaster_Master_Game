@@ -30,26 +30,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -153,6 +153,7 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBallbot.h" />
+    <ClInclude Include="CBOOM.h" />
     <ClInclude Include="CDrap.h" />
     <ClInclude Include="CGX680.h" />
     <ClInclude Include="CGX680S.h" />
@@ -161,12 +162,15 @@
     <ClInclude Include="CREDWORM.h" />
     <ClInclude Include="CStuka.h" />
     <ClInclude Include="CTANKBULLET.h" />
+    <ClInclude Include="EFFECT.h" />
     <ClInclude Include="Eyelet.h" />
-    <ClInclude Include="DefinePlayer.h" />
+    <ClInclude Include="DF.h" />
     <ClInclude Include="Interrupt.h" />
-    <ClInclude Include="Interrupt_Firing.h" />
+    <ClInclude Include="CEvenType1.h" />
+    <ClInclude Include="JASON.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="MapObj.h" />
+    <ClInclude Include="NoCollisionObject.h" />
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="CTANKWHEELS.h" />
     <ClInclude Include="TANKBODY.h" />
@@ -189,6 +193,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBallbot.cpp" />
+    <ClCompile Include="CBOOM.cpp" />
     <ClCompile Include="CDrap.cpp" />
     <ClCompile Include="CGX680.cpp" />
     <ClCompile Include="CGX680S.cpp" />
@@ -197,12 +202,15 @@
     <ClCompile Include="CREDWORM.cpp" />
     <ClCompile Include="CStuka.cpp" />
     <ClCompile Include="CTANKBULLET.cpp" />
+    <ClCompile Include="EFFECT.cpp" />
     <ClCompile Include="Eye.cpp" />
     <ClCompile Include="Eyelet.cpp" />
     <ClCompile Include="Interrupt.cpp" />
+    <ClCompile Include="JASON.cpp" />
     <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapObj.cpp" />
+    <ClCompile Include="NoCollisionObject.cpp" />
     <ClCompile Include="PlayScene.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="QuadTree.cpp" />

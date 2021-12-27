@@ -54,7 +54,7 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				isUsed = true;
 				x = SOPHIA->x;
 				y = SOPHIA->y;
-				SetSpeed(SOPHIA->nx * 0.15);
+				SetSpeed(SOPHIA->nx * CTANKBULLET_SPEED);
 				SOPHIA->SetisAlreadyFired(true);
 				SOPHIA->StartFiring();
 				StartReset();
@@ -83,10 +83,15 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (!dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba
 			{
 				(e->obj)->SetState(STATE_DIE);
-			}
-			if (nx != 0 )
-			{
+				((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(e->obj->x, e->obj->y);
 				SetState(CTANKBULLET_STATE_DIE);
+			}
+			else {
+				if (nx != 0)
+				{
+					((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
+					SetState(CTANKBULLET_STATE_DIE);
+				}
 			}
 		}
 		// clean up collision events
@@ -125,9 +130,9 @@ void CTANKBULLET::Render()
 	{
 	case CTANKBULLET_STATE_FLYING:
 		if(vx > 0)
-				ani = CTANKBULLET_ANI_FLYING_RIGHT;
+			ani = CTANKBULLET_ANI_FLYING_RIGHT;
 		else
-		ani = CTANKBULLET_ANI_FLYING_LEFT;
+			ani = CTANKBULLET_ANI_FLYING_LEFT;
 		break;
 	}
 

@@ -2,21 +2,21 @@
 #include "GameObject.h"
 #include "DF.h"
 
-class CSOPHIA : public CGameObject
+class JASON : public CGameObject
 {
 	int level;
 	int untouchable;
+
+	int pre_ani = 0;
+
 	DWORD firing_start;
 	DWORD untouchable_start;
-
-	float start_x;			// initial position of SOPHIA at scene
-	float start_y;
 
 	bool isFiring = 0;
 	bool isAlreadyFired = 0;
 
 public:
-	CSOPHIA(float x = 0.0f, float y = 0.0f);
+	JASON(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);

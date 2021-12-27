@@ -126,9 +126,6 @@
     <ClInclude Include="CINTERRUPT_BULLET.h">
       <Filter>Header Files\OtherObj</Filter>
     </ClInclude>
-    <ClInclude Include="Interrupt_Firing.h">
-      <Filter>Header Files\Event_Buffer</Filter>
-    </ClInclude>
     <ClInclude Include="CREDWORM.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
@@ -141,11 +138,26 @@
     <ClInclude Include="TANKBODY.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="DefinePlayer.h">
+    <ClInclude Include="DF.h">
       <Filter>Header Files\OtherObj</Filter>
     </ClInclude>
     <ClInclude Include="TANKTURRET.h">
       <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CEvenType1.h">
+      <Filter>Header Files\Event_Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="EFFECT.h">
+      <Filter>Header Files\OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CBOOM.h">
+      <Filter>Header Files\OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="JASON.h">
+      <Filter>Header Files\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="NoCollisionObject.h">
+      <Filter>Header Files\OtherObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +259,18 @@
     </ClCompile>
     <ClCompile Include="TANKTURRET.cpp">
       <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EFFECT.cpp">
+      <Filter>Source Files\OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CBOOM.cpp">
+      <Filter>Source Files\OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="JASON.cpp">
+      <Filter>Source Files\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="NoCollisionObject.cpp">
+      <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

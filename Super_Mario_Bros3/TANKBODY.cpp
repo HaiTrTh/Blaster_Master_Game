@@ -1,7 +1,7 @@
 #include "TANKBODY.h"
 #include <algorithm>
 #include "PlayScene.h"
-#include "DefinePlayer.h"
+#include "DF.h"
 
 
 TANKBODY::TANKBODY()

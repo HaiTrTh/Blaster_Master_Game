@@ -11,13 +11,13 @@ CREDWORM::CREDWORM()
 
 void CREDWORM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	/*left = x;
+	left = x;
 	top = y;
 	right = x + CREDWORM_BBOX_WIDTH;
 
 	if (state == CREDWORM_STATE_DIE)
 		y = y + CREDWORM_BBOX_HEIGHT;
-	else bottom = y + CREDWORM_BBOX_HEIGHT;*/
+	else bottom = y + CREDWORM_BBOX_HEIGHT;
 }
 
 void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -30,7 +30,7 @@ void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// Simple fall down
 	if (state != CREDWORM_STATE_DIE)
-		vy += SOPHIA_GRAVITY * dt;
+		vy -= SOPHIA_GRAVITY * dt;
 
 	coEvents.clear();
 
@@ -49,7 +49,7 @@ void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->CheckWormSpamMng())
 		{
 			SetState(CREDWORM_STATE_WALKING);
-			this->SetPosition(playscene->GetWormSpamMng()->getInterrupt_FiringPoisitionX(), playscene->GetWormSpamMng()->getInterrupt_FiringPoisitionY());
+			this->SetPosition(playscene->GetWormSpamMng()->getCEventPoisitionX(), playscene->GetWormSpamMng()->getCEventPoisitionY());
 			playscene->DeleteWormSpamMng();
 			isUsed = true;
 			
@@ -115,7 +115,7 @@ void CREDWORM::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
-	/*for (UINT i = 0; i < coObjects->size(); i++)
+	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 		if (!dynamic_cast<CBrick*>(e->obj))
@@ -127,24 +127,24 @@ void CREDWORM::CalcPotentialCollisions(
 		else
 			delete e;
 	}
-	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);*/
+	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
 void CREDWORM::Render()
 {
-	//int ani = 0;
+	int ani = 0;
 
-	//switch (nx)
-	//{
-	//case 1:
-	//	ani = CREDWORM_ANI_WALKING_RIGHT;
-	//	break;
-	//case -1:
-	//	ani = CREDWORM_ANI_WALKING_LEFT;
-	//	break;
-	//}
+	switch (nx)
+	{
+	case 1:
+		ani = CREDWORM_ANI_WALKING_RIGHT;
+		break;
+	case -1:
+		ani = CREDWORM_ANI_WALKING_LEFT;
+		break;
+	}
 
-	//animation_set->at(ani)->Render(x, y);
+	animation_set->at(ani)->Render(x, y);
 
 	//RenderBoundingBox();
 }
