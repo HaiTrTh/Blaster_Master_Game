@@ -1,11 +1,11 @@
-#include "CSTUKA.h"
-CSTUKA::CSTUKA()
+#include "Stuka.h"
+Stuka::Stuka()
 {
 	SetState(CSTUKA_STATE_WALKING);
 	StartSwitch_state();
 }
 
-void CSTUKA::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Stuka::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -17,7 +17,7 @@ void CSTUKA::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		bottom = y + CSTUKA_BBOX_HEIGHT;
 }
 
-void CSTUKA::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Stuka::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -63,7 +63,7 @@ void CSTUKA::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-void CSTUKA::Render()
+void Stuka::Render()
 {
 	if (state != STATE_DIE)
 	{
@@ -75,7 +75,7 @@ void CSTUKA::Render()
 	}
 }
 
-void CSTUKA::SetState(int state)
+void Stuka::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

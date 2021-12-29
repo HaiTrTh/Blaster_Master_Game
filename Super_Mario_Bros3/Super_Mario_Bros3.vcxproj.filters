@@ -93,28 +93,28 @@
     <ClInclude Include="Interrupt.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CBallbot.h">
+    <ClInclude Include="Ballbot.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CDrap.h">
+    <ClInclude Include="Drap.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CGX680.h">
+    <ClInclude Include="GX_680.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CGX680S.h">
+    <ClInclude Include="GX_680S.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CLaserGuard.h">
+    <ClInclude Include="LaserGuard.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CStuka.h">
+    <ClInclude Include="Stuka.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Eyelet.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CBallCarry.h">
+    <ClInclude Include="Ball_Carry.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="MapObj.h">
@@ -126,7 +126,7 @@
     <ClInclude Include="CINTERRUPT_BULLET.h">
       <Filter>Header Files\OtherObj</Filter>
     </ClInclude>
-    <ClInclude Include="CREDWORM.h">
+    <ClInclude Include="RedWorm.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CTANKWHEELS.h">
@@ -138,13 +138,13 @@
     <ClInclude Include="TANKBODY.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="DF.h">
+    <ClInclude Include="DefinePlayer.h">
       <Filter>Header Files\OtherObj</Filter>
     </ClInclude>
     <ClInclude Include="TANKTURRET.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CEvenType1.h">
+    <ClInclude Include="EvenType.h">
       <Filter>Header Files\Event_Buffer</Filter>
     </ClInclude>
     <ClInclude Include="EFFECT.h">
@@ -158,6 +158,27 @@
     </ClInclude>
     <ClInclude Include="NoCollisionObject.h">
       <Filter>Header Files\OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CWAVE_BULLET.h">
+      <Filter>Header Files\OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CGRENADE.h">
+      <Filter>Header Files\OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CGX_BULLET.h">
+      <Filter>Header Files\OtherObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CLASER_BULLET.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MapCamera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CSTATBAR.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -209,22 +230,22 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CBallbot.cpp">
+    <ClCompile Include="Ballbot.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="CDrap.cpp">
+    <ClCompile Include="Drap.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="CGX680.cpp">
+    <ClCompile Include="GX_680.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="CGX680S.cpp">
+    <ClCompile Include="GX_680S.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="CLaserGuard.cpp">
+    <ClCompile Include="LaserGuard.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="CStuka.cpp">
+    <ClCompile Include="Stuka.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Eyelet.cpp">
@@ -233,7 +254,7 @@
     <ClCompile Include="Interrupt.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
-    <ClCompile Include="CBallCarry.cpp">
+    <ClCompile Include="Ball_Carry.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="MapObj.cpp">
@@ -245,7 +266,7 @@
     <ClCompile Include="CINTERRUPT_BULLET.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CREDWORM.cpp">
+    <ClCompile Include="RedWorm.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CTANKWHEELS.cpp">
@@ -254,10 +275,10 @@
     <ClCompile Include="SOPHIA.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="TANKBODY.cpp">
+    <ClCompile Include="Tank_Body.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
-    <ClCompile Include="TANKTURRET.cpp">
+    <ClCompile Include="Tank_Turret.cpp">
       <Filter>Source Files\Player</Filter>
     </ClCompile>
     <ClCompile Include="EFFECT.cpp">
@@ -271,6 +292,27 @@
     </ClCompile>
     <ClCompile Include="NoCollisionObject.cpp">
       <Filter>Source Files\OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CGX_BULLET.cpp">
+      <Filter>Source Files\OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CWAVE_BULLET.cpp">
+      <Filter>Source Files\OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CGRENADE.cpp">
+      <Filter>Source Files\OtherObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CLASER_BULLET.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapCamera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CSTATBAR.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

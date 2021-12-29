@@ -7,8 +7,8 @@
 #define CBALLCARRY_WALKING_SPEED 0.1f;
 #define CBALLCARRY_GRAVITY		0.002f
 
-#define CBALLCARRY_BBOX_WIDTH 16
-#define CBALLCARRY_BBOX_HEIGHT 15
+#define CBALLCARRY_BBOX_WIDTH 18
+#define CBALLCARRY_BBOX_HEIGHT 17
 #define CBALLCARRY_BBOX_HEIGHT_DIE 9
 
 #define CBALLCARRY_STATE_WALKING_RIGHT 1000
@@ -27,7 +27,7 @@
 #define CBALLCARRY_STTACK_DURATION 200
 
 
-class CBALLCARRY : public CGameObject
+class Ball_Carry : public CGameObject
 {
 	bool isActive = false;
 	bool isUsed = false;
@@ -47,6 +47,6 @@ class CBALLCARRY : public CGameObject
 	virtual void Render();
 
 public:
-	CBALLCARRY();
+	Ball_Carry();
 	virtual void SetState(int state);
 };

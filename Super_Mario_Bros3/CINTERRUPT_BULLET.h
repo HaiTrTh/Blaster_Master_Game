@@ -26,7 +26,6 @@ class CINTERRUPT_BULLET : public CGameObject
 	virtual void Render();
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
-
 public:
 	CINTERRUPT_BULLET();
 	void SetisUsed(bool value) { isUsed = value; }

@@ -1,23 +1,23 @@
 #pragma once
 #include "GameObject.h"
-#define CREDWORM_SPEED 0.075f;
+#define CGX_BULLET_SPEED 0.075f;
+#define CGX_BULLET_STATE_DIE_SPEED 0;
 
-#define CREDWORM_BBOX_WIDTH	7
-#define CREDWORM_BBOX_HEIGHT 9
+#define CGX_BULLET_BBOX_WIDTH	7
+#define CGX_BULLET_BBOX_HEIGHT 9
 
-#define	CREDWORM_STATE_DIE	200
-#define CREDWORM_STATE_WALKING 100
+#define	CGX_BULLET_STATE_DIE	90
+#define CGX_BULLET_STATE_IDLE 100
 
-#define CREDWORM_ANI_WALKING_RIGHT 1
-#define CREDWORM_ANI_WALKING_LEFT 0
+#define CGX_BULLET_ANI_IDLE 0
 
-#define CREDWORM_GRAVITY	0.0008f
-#define CREDWORM_RESET_TIME 5000
+#define CGX_BULLET_GRAVITY	0.0008f
+#define CGX_BULLET_RESET_TIME 2000
 
 #define STORING_LOCATION 5000
 
 
-class CREDWORM : public CGameObject
+class CGX_BULLET : public CGameObject
 {
 	DWORD reset_start;
 	bool isUsed = false;
@@ -26,9 +26,8 @@ class CREDWORM : public CGameObject
 	virtual void Render();
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
-
 public:
-	CREDWORM();
+	CGX_BULLET();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);

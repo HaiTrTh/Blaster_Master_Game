@@ -1,11 +1,11 @@
-#include "CBALLBOT.h"
+#include "Ballbot.h"
 #include "PlayScene.h"
-CBALLBOT::CBALLBOT()
+Ballbot::Ballbot()
 {
 	SetState(CBALLBOT_STATE_IDLE);
 }
 
-void CBALLBOT::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Ballbot::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	
 	left = x;
@@ -22,7 +22,7 @@ void CBALLBOT::GetBoundingBox(float& left, float& top, float& right, float& bott
 	}
 }
 
-void CBALLBOT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Ballbot::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -83,7 +83,7 @@ void CBALLBOT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba
+			if (dynamic_cast<CBrick*>(e->obj)) 
 			{
 				if (ny < 0 && nx == 0) 
 				{
@@ -106,7 +106,7 @@ void CBALLBOT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CBALLBOT::CalcPotentialCollisions(
+void Ballbot::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -125,7 +125,7 @@ void CBALLBOT::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CBALLBOT::Render()
+void Ballbot::Render()
 {
 	int ani = 0;
 	if (state != CBALLBOT_STATE_DIE)
@@ -144,7 +144,7 @@ void CBALLBOT::Render()
 	
 }
 
-void CBALLBOT::SetState(int state)
+void Ballbot::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

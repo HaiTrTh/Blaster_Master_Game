@@ -91,24 +91,24 @@ void JASON::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void JASON::Render()
 {
-	
+
 	int ani = 0;
 	switch (state)
 	{
 	case JASON_STATE_WALKING_DOWN:
-		ani = 0;
+		ani = JASON_ANI_WALK_DOWN;
 		pre_ani = ani;
 		break;
 	case JASON_STATE_WALKING_UP:
-		ani = 2;
+		ani = JASON_ANI_WALK_UP;
 		pre_ani = ani;
 		break;
 	case JASON_STATE_WALKING_RIGHT:
-		ani = 3;
+		ani = JASON_ANI_WALK_RIGHT;
 		pre_ani = ani;
 		break;
 	case JASON_STATE_WALKING_LEFT:
-		ani = 1;
+		ani = JASON_ANI_WALK_LEFT;
 		pre_ani = ani;
 		break;
 	case JASON_STATE_IDLE:
@@ -180,13 +180,16 @@ void JASON::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
+	CGame* game = CGame::GetInstance();
+	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
+
 	vector <LPCOLLISIONEVENT> collisionEvents;
 
 	for (UINT i = 0; i < coObjects->size(); i++)
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CREDWORM*>(e->obj))
+		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<RedWorm*>(e->obj))
 		{
 			continue;
 		}
@@ -199,7 +202,22 @@ void JASON::CalcPotentialCollisions(
 			continue;
 		}
 		if (e->t > 0 && e->t <= 1.0f)
-			collisionEvents.push_back(e);
+		{
+			if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
+				if (portal->GetSceneId() != -1)
+					game->SwitchScene(portal->GetSceneId());
+				playscene->StartFilming();
+				game->setFilming(true);
+				playscene->setCamState(portal->GetCamState());
+				continue;
+			}
+			else
+			{
+				collisionEvents.push_back(e);
+			}
+		}
 		else
 			delete e;
 	}

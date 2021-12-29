@@ -1,22 +1,4 @@
 #include "PlayScene.h"
-#define OBJECT_TYPE_BRICK	1
-#define OBJECT_TYPE_GOOMBA	2
-#define OBJECT_TYPE_LASERGUARD	3
-#define OBJECT_TYPE_BALLCARRY	4
-#define OBJECT_TYPE_BALLBOT	5
-#define OBJECT_TYPE_DRAP	6
-#define OBJECT_TYPE_CGX680	7
-#define OBJECT_TYPE_CGX680S	8
-#define OBJECT_TYPE_CSTUKA	9
-#define OBJECT_TYPE_EYELET	10
-#define OBJECT_TYPE_CINTERCRUPT	11
-#define OBJECT_TYPE_CINTERCRUPT_BULLET	12
-#define OBJECT_TYPE_NoCollisionObject	17
-#define OBJECT_TYPE_PORTAL	50
-
-#define MAX_SCENE_LINE 1024
-
-#define SCENE_SECTION_MapObj	7
 
 CQuadTree::CQuadTree(LPCWSTR filePath)
 {
@@ -112,13 +94,13 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_LASERGUARD: obj = new CLASERGUARD(); break;
-	case OBJECT_TYPE_BALLCARRY: obj = new CBALLCARRY(); break;
-	case OBJECT_TYPE_BALLBOT: obj = new CBALLBOT(); break;
-	case OBJECT_TYPE_DRAP: obj = new CDRAP(); break;
-	case OBJECT_TYPE_CGX680: obj = new CGX680(); break;
-	case OBJECT_TYPE_CGX680S: obj = new CGX680S(); break;
-	case OBJECT_TYPE_CSTUKA: obj = new CSTUKA(); break;
+	case OBJECT_TYPE_LASERGUARD: obj = new LaserGuard(); break;
+	case OBJECT_TYPE_BALLCARRY: obj = new Ball_Carry(); break;
+	case OBJECT_TYPE_BALLBOT: obj = new Ballbot(); break;
+	case OBJECT_TYPE_DRAP: obj = new Drap(); break;
+	case OBJECT_TYPE_CGX680: obj = new GX_680(); break;
+	case OBJECT_TYPE_CGX680S: obj = new GX_680S(); break;
+	case OBJECT_TYPE_CSTUKA: obj = new Stuka(); break;
 	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
 	case OBJECT_TYPE_EYELET: 
 	{
@@ -209,25 +191,10 @@ void CQuadTree::Render()
 
 void CQuadTree::GetObjects(vector<LPGAMEOBJECT>& listObject, int CamX, int CamY)
 {
-	//listObject.clear();
-
-	unsigned int  left, top, right, bottom;
-
-	left = (CamX);
-
-	right = (CamX + CGame::GetInstance()->GetScreenWidth());
-
-	top = (CamY);
-
-	bottom = (CamY + CGame::GetInstance()->GetScreenHeight());
-
-	if (left > x + cellWidth || right < x || top > y + cellHeight || bottom < y)
-		return;
-
 	Pop(listObject, CamX, CamY);
 }
 
-void CQuadTree::Pop(vector<LPGAMEOBJECT>& listObject, int CamX, int CamY)
+void CQuadTree::Pop(vector<LPGAMEOBJECT>& Object, int CamX, int CamY)
 {
 	if (this == NULL)
 		return;
@@ -235,24 +202,24 @@ void CQuadTree::Pop(vector<LPGAMEOBJECT>& listObject, int CamX, int CamY)
 	{
 		for (int i = 0; i < listObjects.size(); i++)
 		{
-			if (inRange(x + cellWidth, y + cellHeight, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
+			if (inRange(x + cellWidth, y + cellHeight, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()) && listObjects[i]->GetisAlive())
 			if (!listObjects[i]->GetActive())
 			{
 				float Ox, Oy;
 				listObjects[i]->GetOriginLocation(Ox, Oy);
 				/*if (!inRange(Ox, Oy, CamX, CamY, CGame::GetInstance()->GetScreenWidth(), CGame::GetInstance()->GetScreenHeight()))
 					listObjects[i]->reset();*/
-				listObject.push_back(listObjects[i]);
+				Object.push_back(listObjects[i]);
 				listObjects[i]->SetActive(true);
 			}
 		}
 		return;
 	}
 
-	BrachTL->Pop(listObject, CamX, CamY);
-	BrachTR->Pop(listObject, CamX, CamY);
-	BrachBL->Pop(listObject, CamX, CamY);
-	BrachBR->Pop(listObject, CamX, CamY);
+	BrachTL->Pop(Object, CamX, CamY);
+	BrachTR->Pop(Object, CamX, CamY);
+	BrachBL->Pop(Object, CamX, CamY);
+	BrachBR->Pop(Object, CamX, CamY);
 		
 }
 

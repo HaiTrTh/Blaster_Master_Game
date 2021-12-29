@@ -5,8 +5,8 @@
 
 #define CBALLBOT_FLYING_SPEED 0.05f;
 
-#define CBALLBOT_BBOX_WIDTH 16
-#define CBALLBOT_BBOX_HEIGHT 15
+#define CBALLBOT_BBOX_WIDTH 18
+#define CBALLBOT_BBOX_HEIGHT 18
 #define CBALLBOT_BBOX_HEIGHT_DIE 9
 
 #define CBALLBOT_STATE_IDLE 1000
@@ -23,7 +23,7 @@
 
 #define CBALLBOT_X_RANGE 20
 
-class CBALLBOT : public CGameObject
+class Ballbot : public CGameObject
 {
 	bool triggered = false;
 	int pre_ani;
@@ -44,6 +44,6 @@ class CBALLBOT : public CGameObject
 	virtual void Render();
 
 public:
-	CBALLBOT();
+	Ballbot();
 	virtual void SetState(int state);
 };
