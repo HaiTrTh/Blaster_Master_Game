@@ -1,24 +1,24 @@
-#include "GX_680.h"
-GX_680::GX_680()
+#include "GX680S.h"
+CGX680S::CGX680S()
 {
 	SetState(STATE_IDLE);
 }
 
-void GX_680::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CGX680S::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == STATE_DIE)
 		return;
 	left = x;
 	top = y;
-	right = x + CGX680_BBOX_WIDTH;
+	right = x + CGX680S_BBOX_WIDTH;
 
-	if (state == CGX680_STATE_DIE)
-		bottom = y + CGX680_BBOX_HEIGHT_DIE;
+	if (state == CGX680S_STATE_DIE)
+		bottom = y + CGX680S_BBOX_HEIGHT_DIE;
 	else
-		bottom = y + CGX680_BBOX_HEIGHT;
+		bottom = y + CGX680S_BBOX_HEIGHT;
 }
 
-void GX_680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -34,17 +34,17 @@ void GX_680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			StartAttack();
 		}
 
-		if ((DWORD)GetTickCount64() - switch_state >= CGX680_WALKING_TIME && switch_state != 0)
+		if ((DWORD)GetTickCount64() - switch_state >= CGX680S_WALKING_TIME && switch_state != 0)
 		{
 			switch_state = 0;
 
 			StartSwitch_state();
 
-			vx = (playscene->GetPlayer2()->GetPositionX() - x) / abs(playscene->GetPlayer2()->GetPositionX() - x) * CGX680_WALKING_SPEED;
-			vy = -(playscene->GetPlayer2()->GetPositionY() - y) / abs(playscene->GetPlayer2()->GetPositionY() - y) * CGX680_WALKING_SPEED;
+			vx = (playscene->GetPlayer2()->GetPositionX() - x) / abs(playscene->GetPlayer2()->GetPositionX() - x) * CGX680S_WALKING_SPEED;
+			vy = -(playscene->GetPlayer2()->GetPositionY() - y) / abs(playscene->GetPlayer2()->GetPositionY() - y) * CGX680S_WALKING_SPEED;
 		}
 
-		if ((DWORD)GetTickCount64() - attacking >= CGX680_ATTACKING_TIME && attacking != 0)
+		if ((DWORD)GetTickCount64() - attacking >= CGX680S_ATTACKING_TIME && attacking != 0)
 		{
 			attacking = 0;
 
@@ -59,8 +59,21 @@ void GX_680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			playscene->AddCGXMng(x, y, bx, by);
 		}
 	}
+	else
+	{
+		if (!spammed)
+		{
+			int chance = rand() % 100;
+			srand(time(NULL));
+			if(chance >= 50)
+			playscene->AddItemsMng(x, y, 0);
+			spammed = true;
+		}
+	}
+
 	if (state != STATE_IDLE)
 		CalcPotentialCollisions(coObjects, coEvents);
+
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -93,16 +106,17 @@ void GX_680::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 
 }
 
-void GX_680::Render()
+void CGX680S::Render()
 {
 	if (state != STATE_DIE)
 	{
-		int ani = CGX680_ANI;
+		int ani = CGX680S_ANI;
 
 		animation_set->at(ani)->Render(x, y);
 
@@ -110,7 +124,7 @@ void GX_680::Render()
 	}
 }
 
-void GX_680::SetState(int state)
+void CGX680S::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

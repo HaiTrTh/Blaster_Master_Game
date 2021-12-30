@@ -189,7 +189,7 @@ void JASON::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<RedWorm*>(e->obj))
+		if (dynamic_cast<CTANKBULLET*>(e->obj) || dynamic_cast<CREDWORM*>(e->obj))
 		{
 			continue;
 		}
@@ -213,6 +213,16 @@ void JASON::CalcPotentialCollisions(
 				playscene->setCamState(portal->GetCamState());
 				continue;
 			}
+			else
+				if (dynamic_cast<Items*>(e->obj))
+				{
+					Items* item = dynamic_cast<Items*>(e->obj);
+					if (item->getType() == 0)
+					{
+						game->setheath(game->Getheath() + 100);
+					}
+					continue;
+				}
 			else
 			{
 				collisionEvents.push_back(e);

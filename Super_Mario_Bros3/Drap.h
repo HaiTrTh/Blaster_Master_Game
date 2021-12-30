@@ -5,7 +5,7 @@
 #include "PlayScene.h"
 #include "algorithm"
 
-#define CDRAP_WALKING_SPEED 0.2f;
+#define CDRAP_WALKING_SPEED 0.1f;
 
 #define CDRAP_BBOX_WIDTH 17
 #define CDRAP_BBOX_HEIGHT 18
@@ -22,7 +22,7 @@
 #define CDRAP_STATE_WALKING 300
 #define CDRAP_ATTACKING_TIME 5000
 
-class Drap : public CGameObject
+class CDRAP : public CGameObject
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -39,6 +39,6 @@ public:
 			attacking = (DWORD)GetTickCount64();
 		}
 	}
-	Drap();
+	CDRAP();
 	virtual void SetState(int state);
 };

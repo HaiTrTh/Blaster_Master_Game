@@ -1,4 +1,4 @@
-#include "CGRENADE.h"
+#include "GRENADE.h"
 #include <algorithm>
 #include "PlayScene.h"
 #include "JASON.h"

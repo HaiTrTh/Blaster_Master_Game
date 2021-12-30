@@ -28,7 +28,7 @@
 #define CSTUKA_ATTACK_TIME 800
 
 
-class Stuka : public CGameObject
+class CSTUKA : public CGameObject
 {
 	int pre_ani;
 	DWORD pre_tickcount;
@@ -49,6 +49,6 @@ class Stuka : public CGameObject
 	virtual void Render();
 
 public:
-	Stuka();
+	CSTUKA();
 	virtual void SetState(int state);
 };

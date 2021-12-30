@@ -24,7 +24,7 @@
 #define CGX680S_ATTACKING_TIME 3000
 
 
-class GX_680S : public CGameObject
+class CGX680S : public CGameObject
 {
 	DWORD switch_state = 0;
 	DWORD attacking = 0;
@@ -47,6 +47,6 @@ class GX_680S : public CGameObject
 	virtual void Render();
 
 public:
-	GX_680S();
+	CGX680S();
 	virtual void SetState(int state);
 };

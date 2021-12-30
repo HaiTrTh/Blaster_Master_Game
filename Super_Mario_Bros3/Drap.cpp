@@ -1,10 +1,10 @@
 #include "Drap.h"
-Drap::Drap()
+CDRAP::CDRAP()
 {
 	SetState(STATE_IDLE);
 }
 
-void Drap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CDRAP::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CDRAP_STATE_DIE) {
 		left = x;
@@ -14,7 +14,7 @@ void Drap::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 	}
 }
 
-void Drap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CDRAP::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -87,7 +87,7 @@ void Drap::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void Drap::Render()
+void CDRAP::Render()
 {
 	if (state != STATE_DIE)
 	{
@@ -99,7 +99,7 @@ void Drap::Render()
 	}
 }
 
-void Drap::SetState(int state)
+void CDRAP::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

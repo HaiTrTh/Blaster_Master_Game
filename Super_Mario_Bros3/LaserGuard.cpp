@@ -1,10 +1,10 @@
 #include "LaserGuard.h"
-LaserGuard::LaserGuard()
+CLASERGUARD::CLASERGUARD()
 {
 	SetState(STATE_IDLE);
 }
 
-void LaserGuard::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void CLASERGUARD::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CLASERGUARD_STATE_DIE) {
 		left = x;
@@ -14,7 +14,7 @@ void LaserGuard::GetBoundingBox(float& left, float& top, float& right, float& bo
 	}
 }
 
-void LaserGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CLASERGUARD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -22,24 +22,37 @@ void LaserGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
-
-
-	if (attacking != 0 && (DWORD)GetTickCount64() - attacking >= CLASERGUARD_ATTACKING_TIME)
+	if (state != STATE_DIE)
 	{
-		attacking = 0;
-	}
 
-	float px, py;
+		if (attacking != 0 && (DWORD)GetTickCount64() - attacking >= CLASERGUARD_ATTACKING_TIME)
+		{
+			attacking = 0;
+		}
 
-	((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer2()->GetPosition(px, py);
+		float px, py;
 
-	if (playscene->IsInside(x, y, x + CLASERGUARD_BBOX_WIDTH, y + 500, px + JASON_BIG_BBOX_WIDTH/2, py) && attacking == 0)
-	{
-		playscene->AddInterruptBulletMng(this->x, this->y);
-		StartAttack();
-	}
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer2()->GetPosition(px, py);
+
+		if (playscene->IsInside(x, y, x + CLASERGUARD_BBOX_WIDTH, y + 500, px + JASON_BIG_BBOX_WIDTH / 2, py) && attacking == 0)
+		{
+			playscene->AddInterruptBulletMng(this->x, this->y);
+			StartAttack();
+		}
 
 		CalcPotentialCollisions(coObjects, coEvents);
+	}
+	else
+	{
+		if (!spammed)
+		{
+			int chance = rand() % 100;
+			srand(time(NULL));
+			if (chance >= 40)
+				playscene->AddItemsMng(x, y, 1);
+			spammed = true;
+		}
+	}
 
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
@@ -81,7 +94,7 @@ void LaserGuard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void LaserGuard::Render()
+void CLASERGUARD::Render()
 {
 	if (state != STATE_DIE)
 	{
@@ -93,7 +106,7 @@ void LaserGuard::Render()
 	}
 }
 
-void LaserGuard::SetState(int state)
+void CLASERGUARD::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

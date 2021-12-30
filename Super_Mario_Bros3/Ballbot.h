@@ -23,7 +23,7 @@
 
 #define CBALLBOT_X_RANGE 20
 
-class Ballbot : public CGameObject
+class BALLBOT : public CGameObject
 {
 	bool triggered = false;
 	int pre_ani;
@@ -44,6 +44,6 @@ class Ballbot : public CGameObject
 	virtual void Render();
 
 public:
-	Ballbot();
+	BALLBOT();
 	virtual void SetState(int state);
 };

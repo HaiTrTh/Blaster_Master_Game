@@ -11,25 +11,25 @@
 #include "CTANKWHEELS.h"
 #include "MapObj.h"
 #include "LaserGuard.h"
-#include "Ball_Carry.h"
-#include "Ballbot.h"
-#include "Drap.h"
-#include "GX_680.h"
-#include "GX_680S.h"
-#include "Stuka.h"
+#include "BallCarry.h"
+#include "BallBot.h"
+#include "DRAP.h"
+#include "GX680.h"
+#include "GX680S.h"
+#include "STUKA.h"
 #include "Eyelet.h"
 #include "Interrupt.h"
-#include "CTANKBULLET.h"
-#include "EvenType.h"
-#include "CINTERRUPT_BULLET.h"
-#include "RedWorm.h"
-#include "TANKBODY.h"
-#include "TANKTURRET.h"
+#include "SOPHIABODY.h"
+#include "CEvenType1.h"
+#include "INTERRUPT_BULLET.h"
+#include "REDWORM.h"
+#include "SOPHIABODY.h"
+#include "SOPHIATURRET.h"
 #include "EFFECT.h"
 #include "JASON.h"
-#include "CBOOM.h"
+#include "BOOM.h"
 #include "NoCollisionObject.h"
-
+#include "SOPHIABULLET.h"
 #include "Utils.h"
 #include "Game.h"
 #include <iostream>
@@ -38,13 +38,16 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "DefinePlayer.h"
+#include "DF.h"
 #include "CWAVE_BULLET.h"
-#include "CGRENADE.h"
-#include "CGX_BULLET.h"
-#include "CLASER_BULLET.h"
+#include "GRENADE.h"
+#include "GX_BULLET.h"
+#include "LASER_BULLET.h"
 #include "MapCamera.h"
-#include "CSTATBAR.h"
+#include "HP.h"
+#include "MINI_JASON.h"
+#include "SOPHIADOOR.h"
+#include "Items.h"
 
 #define QUADTREE_SECTION_SETTINGS	1
 #define QUADTREE_SECTION_OBJECTS	2
@@ -94,6 +97,7 @@ class CPlayScene : public CScene
 protected:
 	CSOPHIA* player;				// A play scene has to have player, right? 
 	JASON* player2;
+	MINI_JASON* player3;
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> secondLayer;
 	int mapHeight;
@@ -104,12 +108,15 @@ protected:
 	vector<CEvenType1*> KaboomMng;
 	vector<CEvenType1*> BoomCarryMng;
 	vector<CEvenType1*> CGXMng;
+	vector<CEvenType1*> ItemsMng;
 	vector<MapCamera*> MapCam;
 	
 	int filming_duration = 1000;
 	DWORD filming_start = 0;
 
 	int camState = 0;
+
+	bool piloting = true;
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -133,7 +140,17 @@ public:
 
 	CSOPHIA* GetPlayer() { return player; }
 	JASON* GetPlayer2() { return player2; }
+	MINI_JASON* GetPlayer3() { return player3; }
 
+	void setpiloting(int value)
+	{
+		piloting = value;
+	}
+
+	int getpiloting()
+	{
+		return piloting;
+	}
 	void StartFilming()
 	{
 		if (filming_start == 0)
@@ -156,6 +173,27 @@ public:
 	int getMapheight()
 	{
 		return mapHeight;
+	}
+	
+	/////////////////ItemsMng
+	void AddItemsMng(float x, float y, int num)
+	{
+		CEvenType1* obj = new CEvenType1(x, y, num);
+		this->ItemsMng.push_back(obj);
+	}
+	CEvenType1* GetItemsMng()
+	{
+		return ItemsMng.at(0);
+	}
+	bool CheckItemsMng()
+	{
+		if (ItemsMng.size() != 0)
+			return true;
+		return false;
+	}
+	void DeleteItemsMng()
+	{
+		this->ItemsMng.erase(ItemsMng.begin());
 	}
 	/////////////////CGXMng
 	void AddCGXMng(float x, float y, float vx, float vy)

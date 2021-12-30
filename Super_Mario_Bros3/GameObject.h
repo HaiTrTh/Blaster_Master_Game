@@ -75,7 +75,30 @@ public:
 
 	bool isOriginObj = false;
 
+	int heath = 100;
+
+	bool spammed = false;
+
 public:
+
+	bool Getspammed()
+	{
+		return spammed;
+	}
+	void setspammed(bool value)
+	{
+		spammed = value;
+	}
+	int Getheath()
+	{
+		return heath;
+	}
+	void setheath(int value)
+	{
+		heath = value;
+		if (heath == 0)
+			state = STATE_DIE;
+	}
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx = 0, float vy = 0) { this->vx = vx, this->vy = vy; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }

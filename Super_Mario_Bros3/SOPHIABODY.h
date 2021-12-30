@@ -1,8 +1,8 @@
 #pragma once
 #include "GameObject.h"
-#include "DefinePlayer.h"
+#include "DF.h"
 
-class TANKTURRET : public CGameObject
+class TANKBODY : public CGameObject
 {
 	int part = 0;
 	int pre_ani = 0;
@@ -12,7 +12,7 @@ class TANKTURRET : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 
 public:
-	TANKTURRET();
+	TANKBODY();
 	virtual void SetState(int state);
 };
 

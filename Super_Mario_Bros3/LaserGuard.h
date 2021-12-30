@@ -22,7 +22,7 @@
 #define CLASERGUARD_STATE_WALKING 300
 #define CLASERGUARD_ATTACKING_TIME 2000
 
-class LaserGuard : public CGameObject
+class CLASERGUARD : public CGameObject
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -39,6 +39,6 @@ public:
 			attacking = (DWORD)GetTickCount64();
 		}
 	}
-	LaserGuard();
+	CLASERGUARD();
 	virtual void SetState(int state);
 };

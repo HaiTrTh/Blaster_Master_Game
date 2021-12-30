@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "DF.h"
 
-class TANKWHEEL : public CGameObject
+class TANKTURRET : public CGameObject
 {
 	int part = 0;
 	int pre_ani = 0;
@@ -12,8 +12,7 @@ class TANKWHEEL : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 
 public:
-	float upBoudary;
-	TANKWHEEL(int part);
+	TANKTURRET();
 	virtual void SetState(int state);
 };
 
