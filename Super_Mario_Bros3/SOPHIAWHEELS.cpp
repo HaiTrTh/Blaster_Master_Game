@@ -1,18 +1,18 @@
-#include "CTANKWHEELS.h"
+#include "SOPHIAWHEELS.h"
 #include <algorithm>
 #include "PlayScene.h"
 
 
-TANKWHEEL::TANKWHEEL(int part)
+SOPHIAWHEELS::SOPHIAWHEELS(int part)
 {
 	this->part = part;
 }
 
-void TANKWHEEL::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SOPHIAWHEELS::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void TANKWHEEL::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void SOPHIAWHEELS::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	
 	CGameObject::Update(dt, coObjects);
@@ -60,7 +60,7 @@ void TANKWHEEL::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void TANKWHEEL::Render()
+void SOPHIAWHEELS::Render()
 {
 	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
@@ -99,13 +99,15 @@ void TANKWHEEL::Render()
 		else
 			ani = pre_ani;
 	}
+	int alpha = 255;
+	if (SOPHIA->getUntouchable()) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y);
+	animation_set->at(ani)->Render(x, y, alpha);
 
 	//RenderBoundingBox();
 }
 
-void TANKWHEEL::SetState(int state)
+void SOPHIAWHEELS::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

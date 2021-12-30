@@ -3,13 +3,13 @@
 #include "PlayScene.h"
 #include "Brick.h"
 
-CREDWORM::CREDWORM()
+REDWORM::REDWORM()
 {
 	SetState(CREDWORM_STATE_DIE);
 	nx = 0;
 }
 
-void CREDWORM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void REDWORM::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -20,7 +20,7 @@ void CREDWORM::GetBoundingBox(float& left, float& top, float& right, float& bott
 	else bottom = y + CREDWORM_BBOX_HEIGHT;
 }
 
-void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void REDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -28,6 +28,15 @@ void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
+	if (!spammed && state == STATE_DIE)
+	{
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
+		int chance = rand() % 100;
+		srand(time(NULL));
+		if (chance >= 90)
+			playscene->AddItemsMng(x, y, 0);
+		spammed = true;
+	}
 	// Simple fall down
 	if (state != CREDWORM_STATE_DIE)
 		vy -= SOPHIA_GRAVITY * dt;
@@ -102,6 +111,12 @@ void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<CSOPHIA*>(e->obj) && !playscene->GetPlayer()->getUntouchable())
+			{
+				playscene->GetPlayer()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
 		}
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -111,7 +126,7 @@ void CREDWORM::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CREDWORM::CalcPotentialCollisions(
+void REDWORM::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -130,7 +145,7 @@ void CREDWORM::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CREDWORM::Render()
+void REDWORM::Render()
 {
 	int ani = 0;
 
@@ -149,7 +164,7 @@ void CREDWORM::Render()
 	//RenderBoundingBox();
 }
 
-void CREDWORM::SetState(int state)
+void REDWORM::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

@@ -1,10 +1,10 @@
 #include "GX680S.h"
-CGX680S::CGX680S()
+GX680S::GX680S()
 {
 	SetState(STATE_IDLE);
 }
 
-void CGX680S::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void GX680S::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state == STATE_DIE)
 		return;
@@ -18,17 +18,18 @@ void CGX680S::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = y + CGX680S_BBOX_HEIGHT;
 }
 
-void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void GX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
+	CGame* game = CGame::GetInstance();
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	if (state != STATE_DIE)
 	{
-		if (playscene->IsInside(x - 100, y - 100, x + 100, y + 100, playscene->GetPlayer2()->GetPositionX(), playscene->GetPlayer2()->GetPositionY()))
+		if (playscene->IsInside(x - 200, y - 200, x + 200, y + 200, playscene->GetPlayer2()->GetPositionX(), playscene->GetPlayer2()->GetPositionY()))
 		{
 			StartSwitch_state();
 			StartAttack();
@@ -71,7 +72,7 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (state != STATE_IDLE)
+	if (state != STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 
 
@@ -103,6 +104,12 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			if (dynamic_cast<JASON*>(e->obj) && !playscene->GetPlayer2()->getUntouchable())
+			{
+				playscene->GetPlayer2()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
 		}
 	}
 
@@ -112,7 +119,7 @@ void CGX680S::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 }
 
-void CGX680S::Render()
+void GX680S::Render()
 {
 	if (state != STATE_DIE)
 	{
@@ -124,7 +131,7 @@ void CGX680S::Render()
 	}
 }
 
-void CGX680S::SetState(int state)
+void GX680S::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)
@@ -134,6 +141,7 @@ void CGX680S::SetState(int state)
 		vy = 0;
 		break;
 	case STATE_DIE:
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
 		vy = DIE_PULL;
 		break;
 	}

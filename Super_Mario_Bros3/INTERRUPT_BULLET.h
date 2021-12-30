@@ -17,7 +17,7 @@
 #define STORING_LOCATION 5000
 
 
-class CINTERRUPT_BULLET : public CGameObject
+class INTERRUPT_BULLET : public CGameObject
 {
 	DWORD reset_start;
 	bool isUsed = false;
@@ -27,7 +27,7 @@ class CINTERRUPT_BULLET : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
 public:
-	CINTERRUPT_BULLET();
+	INTERRUPT_BULLET();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);

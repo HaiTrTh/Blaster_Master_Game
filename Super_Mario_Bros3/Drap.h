@@ -22,7 +22,7 @@
 #define CDRAP_STATE_WALKING 300
 #define CDRAP_ATTACKING_TIME 5000
 
-class CDRAP : public CGameObject
+class DRAP : public CGameObject
 {
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -39,6 +39,6 @@ public:
 			attacking = (DWORD)GetTickCount64();
 		}
 	}
-	CDRAP();
+	DRAP();
 	virtual void SetState(int state);
 };

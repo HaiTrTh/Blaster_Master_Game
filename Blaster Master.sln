@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30523.141
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Super_Mario_Bros3", "Super_Mario_Bros3\Super_Mario_Bros3.vcxproj", "{6BA30206-2269-4E22-8AC3-451AB4310C50}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blaster Master", "Super_Mario_Bros3\Super_Mario_Bros3.vcxproj", "{6BA30206-2269-4E22-8AC3-451AB4310C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

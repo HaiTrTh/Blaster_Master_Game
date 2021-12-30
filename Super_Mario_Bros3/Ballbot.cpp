@@ -7,7 +7,6 @@ BALLBOT::BALLBOT()
 
 void BALLBOT::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	
 	left = x;
 	top = y;
 	right = x + CBALLBOT_BBOX_WIDTH;
@@ -30,6 +29,17 @@ void BALLBOT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vector<LPCOLLISIONEVENT> coEventsResult;
 
 	coEvents.clear();
+
+	if (!spammed && state == STATE_DIE)
+	{
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
+		int chance = rand() % 100;
+		srand(time(NULL));
+		if (chance >= 70)
+			playscene->AddItemsMng(x, y, 0);
+		spammed = true;
+	}
+
 	if (!triggered) {
 	if (switch_state != 0 && state != CBALLBOT_STATE_IDLE)
 	{
@@ -98,9 +108,20 @@ void BALLBOT::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					vx = 0;
 				}
 			}
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<CSOPHIA*>(e->obj) && !playscene->GetPlayer()->getUntouchable())
+			{
+				playscene->GetPlayer()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
 
 		}
-
+		CGame* game = CGame::GetInstance();
+		if (playscene->IsInside(x - SOPHIA_BIG_BBOX_WIDTH, y - SOPHIA_BIG_BBOX_HEIGHT, x + CBALLBOT_BBOX_WIDTH, y + CBALLBOT_BBOX_HEIGHT, playscene->GetPlayer()->GetPositionX(), playscene->GetPlayer()->GetPositionY()) && !playscene->GetPlayer()->getUntouchable())
+		{
+			playscene->GetPlayer()->StartUntouchable();
+			game->setheath(game->Getheath() - 100);
+		}
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 	}
@@ -118,7 +139,10 @@ void BALLBOT::CalcPotentialCollisions(
 			continue;
 		}
 		if (e->t > 0 && e->t <= 1.0f)
-			coEvents.push_back(e);
+		{
+			//if (dynamic_cast<CSOPHIA*>(e->obj))
+				coEvents.push_back(e);
+		}
 		else
 			delete e;
 	}

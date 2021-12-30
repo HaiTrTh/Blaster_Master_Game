@@ -3,15 +3,15 @@
 #include "PlayScene.h"
 #include "Brick.h"
 
-CGX_BULLET::CGX_BULLET()
+GX_BULLET::GX_BULLET()
 {
 	SetState(CGX_BULLET_STATE_IDLE);
 	nx = 0;
 }
 
-void CGX_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void GX_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (state != CGX_BULLET_STATE_DIE)
+	if (state != STATE_DIE)
 	{
 		left = x;
 		top = y;
@@ -20,7 +20,7 @@ void CGX_BULLET::GetBoundingBox(float& left, float& top, float& right, float& bo
 	}
 }
 
-void CGX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void GX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -30,21 +30,28 @@ void CGX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	coEvents.clear();
 
+	CGame* game = CGame::GetInstance();
+	if (playscene->IsInside(x - JASON_BIG_BBOX_WIDTH, y - JASON_BIG_BBOX_HEIGHT, x + CGX_BULLET_BBOX_WIDTH, y + CGX_BULLET_BBOX_HEIGHT, playscene->GetPlayer2()->GetPositionX(), playscene->GetPlayer2()->GetPositionY()) && !playscene->GetPlayer2()->getUntouchable())
+	{
+		playscene->GetPlayer2()->StartUntouchable();
+		game->setheath(game->Getheath() - 100);
+	}
+
 	if ((DWORD)GetTickCount64() - reset_start > CGX_BULLET_RESET_TIME && reset_start != 0)
 	{
-		state = CGX_BULLET_STATE_DIE;
+		state = STATE_DIE;
 		reset_start = 0;
 	}
 
 	// turn off collision when die 
-	if (state != CGX_BULLET_STATE_DIE)
+	if (state != STATE_DIE)
 		CalcPotentialCollisions(coObjects, coEvents);
 	else
 	{
 		isUsed = false;
 		x = STORING_LOCATION;
 		y = STORING_LOCATION;
-		SetState(CGX_BULLET_STATE_DIE);
+		SetState(STATE_DIE);
 	}
 	if (isUsed == false)
 	{
@@ -78,7 +85,14 @@ void CGX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CBrick*>(e->obj)) 
 			{
-				SetState(CGX_BULLET_STATE_DIE);
+				SetState(STATE_DIE);
+			}
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<JASON*>(e->obj) && !playscene->GetPlayer2()->getUntouchable())
+			{
+				playscene->GetPlayer2()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+				SetState(STATE_DIE);
 			}
 		}
 		// clean up collision events
@@ -86,7 +100,7 @@ void CGX_BULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CGX_BULLET::CalcPotentialCollisions(
+void GX_BULLET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -105,7 +119,7 @@ void CGX_BULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CGX_BULLET::Render()
+void GX_BULLET::Render()
 {
 	int ani = 0;
 
@@ -114,7 +128,7 @@ void CGX_BULLET::Render()
 	case CGX_BULLET_STATE_IDLE:
 		ani = CGX_BULLET_ANI_IDLE;
 		break;
-	case CGX_BULLET_STATE_DIE:
+	case STATE_DIE:
 		return;
 	}
 
@@ -123,7 +137,7 @@ void CGX_BULLET::Render()
 	//RenderBoundingBox();
 }
 
-void CGX_BULLET::SetState(int state)
+void GX_BULLET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

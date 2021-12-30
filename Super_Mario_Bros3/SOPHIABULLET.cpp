@@ -4,13 +4,13 @@
 #include "SOPHIA.h"
 #include "Brick.h"
 
-CTANKBULLET::CTANKBULLET()
+SOPHIABULLET::SOPHIABULLET()
 {
 	SetState(CTANKBULLET_STATE_FLYING);
 	nx = 0;
 }
 
-void CTANKBULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SOPHIABULLET::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CTANKBULLET_STATE_DIE) {
 		left = x;
@@ -20,7 +20,7 @@ void CTANKBULLET::GetBoundingBox(float& left, float& top, float& right, float& b
 	}
 }
 
-void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void SOPHIABULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if ((DWORD)GetTickCount64() - reset_start > CTANKBULLET_RESET_TIME)
 	{
@@ -93,8 +93,8 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (!dynamic_cast<CBrick*>(e->obj)) 
 			{
-				(e->obj)->setheath((e->obj)->Getheath() - 1000);
-				((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(e->obj->x, e->obj->y);
+				(e->obj)->setheath((e->obj)->Getheath() - TANK_BULLET_DMG);
+				//((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(e->obj->x, e->obj->y);
 				SetState(CTANKBULLET_STATE_DIE);
 			}
 			else 
@@ -109,7 +109,7 @@ void CTANKBULLET::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CTANKBULLET::CalcPotentialCollisions(
+void SOPHIABULLET::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -118,7 +118,15 @@ void CTANKBULLET::CalcPotentialCollisions(
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 		if (dynamic_cast<CSOPHIA*>(e->obj))
 		{
-				continue;
+			continue;
+		}
+		if (dynamic_cast<BOOM*>(e->obj))
+		{
+			continue;
+		}
+		if (dynamic_cast<Items*>(e->obj))
+		{
+			continue;
 		}
 		if (e->t > 0 && e->t <= 1.0f)
 			coEvents.push_back(e);
@@ -128,7 +136,7 @@ void CTANKBULLET::CalcPotentialCollisions(
 	std::sort(coEvents.begin(), coEvents.end(), CCollisionEvent::compare);
 }
 
-void CTANKBULLET::Render()
+void SOPHIABULLET::Render()
 {
 	if (isUsed)
 	{
@@ -158,7 +166,7 @@ void CTANKBULLET::Render()
 	}
 }
 
-void CTANKBULLET::SetState(int state)
+void SOPHIABULLET::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

@@ -4,15 +4,15 @@
 #include "DF.h"
 
 
-TANKBODY::TANKBODY()
+SOPHIABODY::SOPHIABODY()
 {
 }
 
-void TANKBODY::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SOPHIABODY::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 }
 
-void TANKBODY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void SOPHIABODY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	CGameObject::Update(dt, coObjects);
@@ -34,7 +34,7 @@ void TANKBODY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 }
 
 
-void TANKBODY::Render()
+void SOPHIABODY::Render()
 {
 	CSOPHIA* SOPHIA = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
@@ -42,12 +42,15 @@ void TANKBODY::Render()
 
 	ani = TANKBODY_ANI_IDLE;
 
-	animation_set->at(ani)->Render(x, y);
+	int alpha = 255;
+	if (SOPHIA->getUntouchable()) alpha = 128;
+
+	animation_set->at(ani)->Render(x, y, alpha);
 
 	//RenderBoundingBox();
 }
 
-void TANKBODY::SetState(int state)
+void SOPHIABODY::SetState(int state)
 {
 	CGameObject::SetState(state);
 	//switch (state)

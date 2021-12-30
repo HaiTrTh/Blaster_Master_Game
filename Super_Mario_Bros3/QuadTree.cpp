@@ -94,21 +94,21 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_LASERGUARD: obj = new CLASERGUARD(); break;
-	case OBJECT_TYPE_BALLCARRY: obj = new CBALLCARRY(); break;
+	case OBJECT_TYPE_LASERGUARD: obj = new LASERGUARD(); break;
+	case OBJECT_TYPE_BALLCARRY: obj = new BALLCARRY(); break;
 	case OBJECT_TYPE_BALLBOT: obj = new BALLBOT(); break;
-	case OBJECT_TYPE_DRAP: obj = new CDRAP(); break;
-	case OBJECT_TYPE_CGX680: obj = new CGX680(); break;
-	case OBJECT_TYPE_CGX680S: obj = new CGX680S(); break;
-	case OBJECT_TYPE_CSTUKA: obj = new CSTUKA(); break;
+	case OBJECT_TYPE_DRAP: obj = new DRAP(); break;
+	case OBJECT_TYPE_CGX680: obj = new GX680(); break;
+	case OBJECT_TYPE_CGX680S: obj = new GX680S(); break;
+	case OBJECT_TYPE_CSTUKA: obj = new STUKA(); break;
 	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
 	case OBJECT_TYPE_EYELET: 
 	{
 		float kill_point = atoi(tokens[4].c_str());
-		obj = new CEYELET(kill_point);
+		obj = new EYELET(kill_point);
 	}
 	break;
-	case OBJECT_TYPE_CINTERCRUPT: obj = new CINTERRUPT(); break;
+	case OBJECT_TYPE_CINTERCRUPT: obj = new INTERRUPT(); break;
 	
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
@@ -118,8 +118,9 @@ void CQuadTree::_ParseSection_OBJECTS(string line)
 	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
 	if (obj != NULL)
 	{
+		CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 		int add = 0;
-		obj->SetPosition((float)x, (float)y);
+		obj->SetPosition((float)x, playscene->getMapheight() - (float)y);
 		obj->SetAnimationSet(ani_set);
 		obj->SetOrigin((float)x, (float)y, obj->GetState());
 		/*obj->SetrenderLayer(renderLayer);*/

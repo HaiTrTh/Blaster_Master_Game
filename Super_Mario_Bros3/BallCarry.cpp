@@ -1,11 +1,11 @@
 #include "BallCarry.h"
 
-CBALLCARRY::CBALLCARRY()
+BALLCARRY::BALLCARRY()
 {
 	SetState(STATE_IDLE);
 }
 
-void CBALLCARRY::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void BALLCARRY::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -17,7 +17,7 @@ void CBALLCARRY::GetBoundingBox(float& left, float& top, float& right, float& bo
 		bottom = y + CBALLCARRY_BBOX_HEIGHT;
 }
 
-void CBALLCARRY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void BALLCARRY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
 	CGameObject::Update(dt, coObjects);
@@ -28,6 +28,16 @@ void CBALLCARRY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// Simple fall down
 	if (state != CBALLCARRY_STATE_DIE)
 		vy -= CBALLCARRY_GRAVITY * dt;
+
+	if (!spammed && state == STATE_DIE)
+	{
+		((CPlayScene*)CGame::GetInstance()->GetCurrentScene())->AddKaboomMng(x, y);
+		int chance = rand() % 100;
+		srand(time(NULL));
+		if (chance >= 70)
+			playscene->AddItemsMng(x, y, 0);
+		spammed = true;
+	}
 
 	coEvents.clear();
 
@@ -86,13 +96,20 @@ void CBALLCARRY::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			CGame* game = CGame::GetInstance();
+			if (dynamic_cast<CSOPHIA*>(e->obj) && !playscene->GetPlayer()->getUntouchable())
+			{
+				playscene->GetPlayer()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+				
+			}
 		}
 		// clean up collision events
 		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 }
 
-void CBALLCARRY::CalcPotentialCollisions(
+void BALLCARRY::CalcPotentialCollisions(
 	vector<LPGAMEOBJECT>* coObjects,
 	vector<LPCOLLISIONEVENT>& coEvents)
 {
@@ -102,7 +119,7 @@ void CBALLCARRY::CalcPotentialCollisions(
 	{
 		LPCOLLISIONEVENT e = SweptAABBEx(coObjects->at(i));
 
-		if (dynamic_cast<CBOOM*>(e->obj))
+		if (dynamic_cast<BOOM*>(e->obj))
 		{
 			continue;
 		}
@@ -126,7 +143,7 @@ void CBALLCARRY::CalcPotentialCollisions(
 	}
 }
 
-void CBALLCARRY::Render()
+void BALLCARRY::Render()
 {
 	int ani = 0;
 	if (state != STATE_DIE)
@@ -147,7 +164,7 @@ void CBALLCARRY::Render()
 	}
 }
 
-void CBALLCARRY::SetState(int state)
+void BALLCARRY::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

@@ -129,7 +129,7 @@
     <ClInclude Include="REDWORM.h">
       <Filter>Header Files\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CTANKWHEELS.h">
+    <ClInclude Include="SOPHIAWHEELS.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
     <ClInclude Include="SOPHIA.h">
@@ -144,7 +144,7 @@
     <ClInclude Include="SOPHIATURRET.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CEvenType1.h">
+    <ClInclude Include="EvenType.h">
       <Filter>Header Files\Event_Buffer</Filter>
     </ClInclude>
     <ClInclude Include="EFFECT.h">
@@ -186,7 +186,7 @@
     <ClInclude Include="SOPHIADOOR.h">
       <Filter>Header Files\Player</Filter>
     </ClInclude>
-    <ClInclude Include="BREAKABLE_BRICK.h">
+    <ClInclude Include="CBREAKABLE_BRICK.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Items.h">
@@ -242,7 +242,7 @@
     <ClCompile Include="Brick.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="BallBot.cpp">
+    <ClCompile Include="Ballbot.cpp">
       <Filter>Source Files\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Drap.cpp">
@@ -275,7 +275,7 @@
     <ClCompile Include="SOPHIABULLET.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CINTERRUPT_BULLET.cpp">
+    <ClCompile Include="INTERRUPT_BULLET.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="REDWORM.cpp">
@@ -296,7 +296,7 @@
     <ClCompile Include="EFFECT.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CBOOM.cpp">
+    <ClCompile Include="BOOM.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="JASON.cpp">
@@ -305,13 +305,13 @@
     <ClCompile Include="NoCollisionObject.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CGX_BULLET.cpp">
+    <ClCompile Include="GX_BULLET.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="CWAVE_BULLET.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CGRENADE.cpp">
+    <ClCompile Include="GRENADE.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="SOPHIADOOR.cpp">
@@ -323,16 +323,16 @@
     <ClCompile Include="sound.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="CLASER_BULLET.cpp">
+    <ClCompile Include="LASER_BULLET.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
-    <ClCompile Include="CSTATBAR.cpp">
+    <ClCompile Include="HP.cpp">
       <Filter>Source Files\OtherObj</Filter>
     </ClCompile>
     <ClCompile Include="MapCamera.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="BREAKABLE_BRICK.cpp">
+    <ClCompile Include="CBREAKABLE_BRICK.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Items.cpp">

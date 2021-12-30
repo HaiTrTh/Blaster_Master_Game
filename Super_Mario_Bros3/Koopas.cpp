@@ -1,11 +1,11 @@
 #include "Koopas.h"
 
-CKoopas::CKoopas()
+KOOPAS::KOOPAS()
 {
 	SetState(KOOPAS_STATE_WALKING);
 }
 
-void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void KOOPAS::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -17,7 +17,7 @@ void CKoopas::GetBoundingBox(float& left, float& top, float& right, float& botto
 		bottom = y + KOOPAS_BBOX_HEIGHT;
 }
 
-void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void KOOPAS::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt, coObjects);
 
@@ -37,7 +37,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 }
 
-void CKoopas::Render()
+void KOOPAS::Render()
 {
 	int ani = KOOPAS_ANI_WALKING_LEFT;
 	if (state == KOOPAS_STATE_DIE) {
@@ -51,7 +51,7 @@ void CKoopas::Render()
 	RenderBoundingBox();
 }
 
-void CKoopas::SetState(int state)
+void KOOPAS::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

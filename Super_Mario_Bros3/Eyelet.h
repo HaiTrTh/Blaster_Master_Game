@@ -25,7 +25,7 @@
 #define MOVING_LIMIT_DEFAULT_VALUE -999999
 #define MOVING_LIMIT_RANGE 30
 
-class CEYELET : public CGameObject
+class EYELET : public CGameObject
 {
 	float kill_point;
 	float moving_limit_top = MOVING_LIMIT_DEFAULT_VALUE;
@@ -33,10 +33,10 @@ class CEYELET : public CGameObject
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
-	void FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPCOLLISIONEVENT>& coEventsResult, float& min_tx, float& min_ty, float& nx, float& ny, float& rdx, float& rdy);
+	//void FilterCollision(vector<LPCOLLISIONEVENT>& coEvents, vector<LPCOLLISIONEVENT>& coEventsResult, float& min_tx, float& min_ty, float& nx, float& ny, float& rdx, float& rdy);
 	virtual void Render();
 
 public:
-	CEYELET(float kill_point);
+	EYELET(float kill_point);
 	virtual void SetState(int state);
 };

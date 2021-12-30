@@ -27,7 +27,7 @@
 #define CBALLCARRY_STTACK_DURATION 200
 
 
-class CBALLCARRY : public CGameObject
+class BALLCARRY : public CGameObject
 {
 	bool isActive = false;
 	bool isUsed = false;
@@ -47,6 +47,6 @@ class CBALLCARRY : public CGameObject
 	virtual void Render();
 
 public:
-	CBALLCARRY();
+	BALLCARRY();
 	virtual void SetState(int state);
 };

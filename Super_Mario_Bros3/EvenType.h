@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "algorithm"
 
-class CEvenType1 : public CGameObject
+class EvenType : public CGameObject
 {
 	float x, y, stack = 0, vx, vy;
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom) {};
@@ -12,7 +12,7 @@ class CEvenType1 : public CGameObject
 	virtual void Render() {};
 public:
 
-	CEvenType1(float x, float y, float num = 0, float vx = 0, float vy = 0)
+	EvenType(float x, float y, float num = 0, float vx = 0, float vy = 0)
 	{
 		this->x = x;
 		this->y = y;

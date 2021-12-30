@@ -13,13 +13,13 @@
 #define CGRENADE_ANI_FLYING_LEFT 1
 
 #define CGRENADE_GRAVITY	0.0008f
-#define CGRENADE_RESET_TIME 500
+#define CGRENADE_RESET_TIME 300
 #define CGRENADE_CHANGE_SPEED_TIME 20
 
 #define STORING_LOCATION 5000
 
 
-class CGRENADE : public CGameObject
+class GRENADE : public CGameObject
 {
 	int dir = 0;
 	DWORD reset_start = 0;
@@ -33,7 +33,7 @@ class CGRENADE : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 
 public:
-	CGRENADE();
+	GRENADE();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);

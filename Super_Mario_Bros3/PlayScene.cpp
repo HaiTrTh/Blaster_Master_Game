@@ -264,10 +264,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(); break;
-	case OBJECT_TYPE_CBOOM: obj = new CBOOM(); break;
-	case OBJECT_TYPE_CTANKBULLET: obj = new CTANKBULLET(); break;
+	case OBJECT_TYPE_CBOOM: obj = new BOOM(); break;
+	case OBJECT_TYPE_CTANKBULLET: obj = new SOPHIABULLET(); break;
 	case OBJECT_TYPE_NoCollisionObject: obj = new CNoCollisionObject(); break;
-	case OBJECT_TYPE_STATBAR: obj = new CSTATBAR(atoi(tokens[4].c_str())); break;
+	case OBJECT_TYPE_STATBAR: obj = new HP(atoi(tokens[4].c_str())); break;
 	case OBJECT_TYPE_ITEMS:
 	{
 		obj = new Items(0);
@@ -276,17 +276,17 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_TANK_WHEEL:
 	{
 		float part = atof(tokens[4].c_str());
-		obj = new TANKWHEEL(part);
+		obj = new SOPHIAWHEELS(part);
 	}
 	break;
 	case OBJECT_TYPE_CLASER_BULLET:
 	{
-		obj = new CLASER_BULLET();
+		obj = new LASER_BULLET();
 	}
 	break;
 	case OBJECT_TYPE_TANK_BODY:
 	{
-		obj = new TANKBODY();
+		obj = new SOPHIABODY();
 	}
 	break;
 	case OBJECT_TYPE_JASON_BULLET_1:
@@ -297,12 +297,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_TANK_TURRET:
 	{
-		obj = new TANKTURRET();
+		obj = new SOPHIATURRET();
 	}
 	break;
 	case OBJECT_TYPE_TANKDOOR:
 	{
-		obj = new CTANKDOOR();
+		obj = new SOPHIADOOR();
 	}
 	break;
 	case OBJECT_TYPE_EFFECT:
@@ -313,12 +313,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	break;
 	case OBJECT_TYPE_JASON_GRENADE:
 	{
-		obj = new CGRENADE();
+		obj = new GRENADE();
 	}
 	break;
 	case OBJECT_TYPE_CGX_BULLET:
 	{
-		obj = new CGX_BULLET();
+		obj = new GX_BULLET();
 	}
 	break;
 	case OBJECT_TYPE_PORTAL:
@@ -330,8 +330,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CPortal(x, y, r, b, scene_id, camState);
 	}
 	break;
-	case OBJECT_TYPE_CINTERCRUPT_BULLET: obj = new CINTERRUPT_BULLET(); break;
-	case OBJECT_TYPE_RED_WORM: obj = new CREDWORM(); break;
+	case OBJECT_TYPE_CINTERCRUPT_BULLET: obj = new INTERRUPT_BULLET(); break;
+	case OBJECT_TYPE_RED_WORM: obj = new REDWORM(); break;
 		
 	break;
 	

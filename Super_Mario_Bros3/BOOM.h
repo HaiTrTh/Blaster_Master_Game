@@ -4,7 +4,8 @@
 #include "algorithm"
 #include "PlayScene.h"
 
-
+#define CBOOM_BBOX_WIDTH	18
+#define CBOOM_BBOX_HEIGHT 10
 
 #define CBOOM_STATE_IDLE	50
 #define CBOOM_STATE_MOVE	100
@@ -20,14 +21,14 @@
 #define CBOOM_VX		0.1f
 #define CBOOM_VY		0.5f
 
-class CBOOM : public CGameObject
+class BOOM : public CGameObject
 {
 	int type;
 	bool isUsed = false;
 	DWORD timing_start = 0;
 public:
 
-	CBOOM();
+	BOOM();
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();

@@ -1,10 +1,10 @@
 #include "LaserGuard.h"
-CLASERGUARD::CLASERGUARD()
+LASERGUARD::LASERGUARD()
 {
 	SetState(STATE_IDLE);
 }
 
-void CLASERGUARD::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void LASERGUARD::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (state != CLASERGUARD_STATE_DIE) {
 		left = x;
@@ -14,7 +14,7 @@ void CLASERGUARD::GetBoundingBox(float& left, float& top, float& right, float& b
 	}
 }
 
-void CLASERGUARD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void LASERGUARD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 	CPlayScene* playscene = ((CPlayScene*)CGame::GetInstance()->GetCurrentScene());
@@ -82,11 +82,19 @@ void CLASERGUARD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+	
+			CGame* game = CGame::GetInstance();
 			if (dynamic_cast<CBrick*>(e->obj))
 			{
-				if(ny == 0 && nx != 0)
-				vx = -vx;
+				if (ny == 0 && nx != 0)
+					vx = -vx;
 			}
+			if (dynamic_cast<JASON*>(e->obj) && !playscene->GetPlayer2()->getUntouchable())
+			{
+				playscene->GetPlayer2()->StartUntouchable();
+				game->setheath(game->Getheath() - 100);
+			}
+			
 		}
 	}
 
@@ -94,7 +102,7 @@ void CLASERGUARD::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
-void CLASERGUARD::Render()
+void LASERGUARD::Render()
 {
 	if (state != STATE_DIE)
 	{
@@ -106,7 +114,7 @@ void CLASERGUARD::Render()
 	}
 }
 
-void CLASERGUARD::SetState(int state)
+void LASERGUARD::SetState(int state)
 {
 	CGameObject::SetState(state);
 	switch (state)

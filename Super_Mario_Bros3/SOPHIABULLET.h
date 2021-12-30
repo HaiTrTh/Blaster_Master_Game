@@ -18,7 +18,7 @@
 #define STORING_LOCATION 5000
 
 
-class CTANKBULLET : public CGameObject
+class SOPHIABULLET : public CGameObject
 {
 	DWORD reset_start;
 	void StartReset() { reset_start = (DWORD)GetTickCount64(); }
@@ -29,7 +29,7 @@ class CTANKBULLET : public CGameObject
 	void CalcPotentialCollisions(vector<LPGAMEOBJECT>* coObjects, vector<LPCOLLISIONEVENT>& coEvents);
 
 public:
-	CTANKBULLET();
+	SOPHIABULLET();
 	void SetisUsed(bool value) { isUsed = value; }
 	bool GetisUsed() { return isUsed; }
 	virtual void SetState(int state);
